@@ -1,1 +1,138 @@
 # Pasta src do Workflow Go.
+
+## Anotações sobre as aulas.
+
+### Imports
+
+Exemplo de import individual.
+
+```
+import "fmt"
+```
+
+Exemplo de múltiplos imports
+
+```
+import (
+	"fmt"
+	"reflect"
+)
+```
+
+### Variáveis
+
+As três formas de declaração que foram mostradas na aula são:
+
+##### Declaração com var
+
+Essa declaração é o equivalente ao "let" do JavaScript, é utilizada para valores que são atulizados após a declaração.
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	var nome = "Paulo"
+    nome = "Henrique"
+
+    fmt.Println(nome); // Irá exibir "Henrique".
+}
+```
+
+##### Declaração com const
+
+Essa declaração é o equivalente ao "const" do JavaScript, é utilizada para valores constantes, que não irão sofrer uma nova atribuição após a declaração.
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	const nome = "Paulo"
+    nome = "Henrique" // Irá gerar um erro nessa linha, dizendo que o valor não pode ser atualizado.
+
+    fmt.Println(nome); // Caso o programa continuasse após o erro, iria exibir "Paulo".
+}
+```
+
+##### Declaração curta
+
+Essa declaração é um atalho para a declaração com var, segue o mesmo funcionamento da mesma.
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	nome := "Paulo"
+    nome = "Henrique"
+
+    fmt.Println(nome); // Irá exibir "Henrique".
+}
+```
+
+### Tipos
+
+Você pode declarar os tipos junto da criação da variável, porém a linguagem Go cuida de fazer a inferência dos tipos automaticamente.
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    var nome string = "Paulo"
+    const idade int = 20
+
+    // Existem dois tipos de float, float32 e float64, o que muda é o tamanho do espaço guardado pra variável.
+    const peso float32 = 65.5
+
+    sobrenome = "Souza" // No caso da declaração curta não é possível declarar o tipo.
+}
+```
+
+### Pacotes
+
+##### "fmt"
+
+Esse pacote é o responsável pelas saídas e entradas do terminal.
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    const nome = "Paulo"
+
+	fmt.Println(nome) // Irá imprimir no termial o texto "Paulo", funciona similiar ao "println" de Java.
+
+	var entrada int
+
+    // É precisa definir qual caractere será digitado e definir uma variável para armazenar o valor da entrada.
+	fmt.Scanf("%d", &entrada) // O "&" é obrigatório, ele é quem define que a variável que você tá passando vai ser atualizada.
+
+    // É uma versão simplificada do comando anterior, não é preciso definir qual caractere será digitado.
+	fmt.Scan(&entrada) // O "&" é obrigatório, ele é quem define que a variável que você tá passando vai ser atualizada.
+}
+```
+
+##### "reflect"
+
+...
+
+```
+package main
+
+import "reflect"
+
+func main() {
+    const tipoDesconhecido = "Tipo"
+
+    // Método "TypeOf" equivale ao "typeof" do JavaScript.
+	fmt.Println(reflect.TypeOf(tipoDesconhecido)) // Irá exibir no terminal o texto "string"
+}
+```
