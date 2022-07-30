@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 )
 
@@ -27,20 +28,37 @@ func lerComando() int {
 	return comandoLido
 }
 
+func iniciarMonitoramento() {
+	fmt.Println("Monitorando...")
+
+	siteUrl := "https://acessibilidade-senai.vercel.app"
+
+	res, _ := http.Get(siteUrl)
+
+	if res.StatusCode >= 200 || res.StatusCode < 300 {
+		fmt.Println("Site:", siteUrl, "foi carregado com sucesso!")
+	} else {
+		fmt.Println("Site:", siteUrl, "está com problemas. Status code [", res.Status, "]")
+	}
+}
+
 func main() {
 	exibeIntroducao()
-	exibirMenu()
 
-	comandoEscolhido := lerComando()
+	for {
+		exibirMenu()
 
-	switch comandoEscolhido {
-	case 1:
-		fmt.Println("Iniciar Monitoramento.")
-	case 2:
-		fmt.Println("Exibir logs.")
-	case 0:
-		os.Exit(0)
-	default:
-		os.Exit(-1)
+		comandoEscolhido := lerComando()
+
+		switch comandoEscolhido {
+		case 1:
+			iniciarMonitoramento()
+		case 2:
+			fmt.Println("Exibir logs.")
+		case 0:
+			os.Exit(0)
+		default:
+			os.Exit(-1)
+		}
 	}
 }

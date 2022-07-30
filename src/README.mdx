@@ -4,13 +4,13 @@
 
 Exemplo de import individual.
 
-```
+```go
 import "fmt"
 ```
 
 Exemplo de múltiplos imports
 
-```
+```go
 import (
 	"fmt"
 	"reflect"
@@ -25,7 +25,7 @@ As três formas de declaração que foram mostradas na aula são:
 
 Essa declaração é o equivalente ao "let" do JavaScript, é utilizada para valores que são atulizados após a declaração.
 
-```
+```go
 package main
 
 import "fmt"
@@ -42,7 +42,7 @@ func main() {
 
 Essa declaração é o equivalente ao "const" do JavaScript, é utilizada para valores constantes, que não irão sofrer uma nova atribuição após a declaração.
 
-```
+```go
 package main
 
 import "fmt"
@@ -59,7 +59,7 @@ func main() {
 
 Essa declaração é um atalho para a declaração com var, segue o mesmo funcionamento da mesma.
 
-```
+```go
 package main
 
 import "fmt"
@@ -76,7 +76,7 @@ func main() {
 
 Você pode declarar os tipos junto da criação da variável, porém a linguagem Go cuida de fazer a inferência dos tipos automaticamente.
 
-```
+```go
 package main
 
 import "fmt"
@@ -98,7 +98,7 @@ func main() {
 
 Esse pacote é o responsável pelas saídas e entradas do terminal.
 
-```
+```go
 package main
 
 import "fmt"
@@ -122,7 +122,7 @@ func main() {
 
 ...
 
-```
+```go
 package main
 
 import "reflect"
@@ -135,6 +135,37 @@ func main() {
 }
 ```
 
+### "os".
+
+Pacote responsável por utilitários do sistema operacional.
+
+```go
+package main
+
+import "os"
+
+func main() {
+    os.Exit(0) // Encerra o programa com sucesso.
+    os.Exit(-1) // Encerra o programa com erro.
+}
+```
+
+### "net/http".
+
+Pacote responsável por fazer requisições externas.
+
+```go
+package main
+
+import "net/http"
+
+func main() {
+	const requestUrl string = "www.google.com"
+
+	resp, error := http.Get(requestUrl) // Busca alguma informação.
+}
+```
+
 
 ## Estruturas condicionais.
 
@@ -142,14 +173,14 @@ func main() {
 
 Semelhante a outras linguagens com tipagem forte, diferente de JavaScript a condição tem sempre que ser uma expressão ou boolean.
 
-```
+```go
 package main
 
 import "fmt"
 
 func main() {
     const texto string = "Paulo"
-    const verdade boolean = true
+    const verdade bool = true
 
 	if texto == "Paulo" { // Essa expressão retornaria true.
 		fmt.Println("Expressão verdadeira.")
@@ -167,7 +198,7 @@ func main() {
 
 Semelhante ao switch em outras linguagens, com diferença que não é precisio adicionar um "break" dentro dos cases.
 
-```
+```go
 package main
 
 import "fmt"
@@ -188,11 +219,39 @@ func main() {
 }
 ```
 
+## Estruturas condicionais.
+
+### "while".
+
+A linguagem Go não tem a estrutura de repetições "while".
+
+### "for"
+
+Ao utilizar o "for" sem definir alguma condição para monitorar quando o looping deve parar, ele irá ser executado infinitamente, até que alguma ação interrompe ele, como por exemplo o método "Exit" do pacote "os".
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	for {
+		fmt.Println("Rodou o Looping")
+
+		os.Exit(0) // Se não houvesse essa linha, o looping iria imprimir "Rodou o Looping" infinitimanete no terminal.
+	}
+}
+```
+
+
 ## Funções.
 
 A declaração é feito com a palabra chave "func", caso queira criar uma função que retorne algo é preciso declarar o tipo do retorno primeiro.
 
-```
+```go
 package main
 
 import "fmt"
@@ -209,5 +268,20 @@ func main() {
     olaMundo() // Irá exibir no console o texto "Olá, Mundo."
 
     numero := retornaDois() // O retorno da função será 2, como definimos a tipagem no retorna da função, podemos usar a declaração curta.
+}
+```
+
+Algumas funções podem retornar mais de um valor, mas para isso você precisa passar a tipagem de retorno em parênteses e separados por vírgula.
+
+```go
+package main
+
+func retornaDoisEQuatro() (int, int) {
+    return 2, 4
+}
+
+func main() {
+    numeroDois, numeroQuatro := retornaDoisEQuatro()
+    _, numeroQuatro := retornaDoisEQuatro() // Caso você não queira usar um dos valores, você pode assinar a variável com _
 }
 ```
