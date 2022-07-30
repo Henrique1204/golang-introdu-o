@@ -134,3 +134,56 @@ func main() {
 	fmt.Println(reflect.TypeOf(tipoDesconhecido)) // Irá exibir no terminal o texto "string"
 }
 ```
+
+
+## Estruturas
+
+### "if"
+
+Semelhante a outras linguagens com tipagem forte, diferente de JavaScript a condição tem sempre que ser uma expressão ou boolean.
+
+```
+package main
+
+import "reflect"
+
+func main() {
+    const texto string = "Paulo"
+    const verdade boolean = true
+
+	if texto == "Paulo" { // Essa expressão retornaria true.
+		fmt.Println("Expressão verdadeira.")
+	} else if texto { // Retornaria um erro dizendo que o valor de "texto" não é válido, por ser uma string.
+		fmt.Println("Expressão verdadeira.")
+	} else if verdade { // Seria considerada válida.
+		fmt.Println("Expressão verdadeira.")
+	} else {
+		fmt.Println("Expressão falsa.")
+	}
+}
+```
+
+### "switch"
+
+Semelhante ao switch em outras linguagens, com diferença que não é precisio adicionar um "break" dentro dos cases.
+
+```
+package main
+
+import "reflect"
+
+func main() {
+    const nome string = "Paulo"
+
+	switch comando {
+	case "Paulo":
+		fmt.Println("Olá, Paulo.")
+	case "Henrique":
+		fmt.Println("Olá, Henrique.")
+	case "Silva":
+		fmt.Println("Olá, Silva.")
+	default:
+		fmt.Println("Olá, desconhecido.")
+	}
+}
+```
