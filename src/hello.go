@@ -1,30 +1,46 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
-func main() {
+func exibeIntroducao() {
 	nome := "Paulo"
 	versao := 1.2
 
 	fmt.Println("Olá, Sr.", nome)
 	fmt.Println("Este programa está na versão", versao)
+}
 
+func exibirMenu() {
 	fmt.Println("1 - Iniciar Monitoramento.")
 	fmt.Println("2 - Exibir logs.")
 	fmt.Println("0 - Sair do programa.")
+}
 
-	var comando int
+func lerComando() int {
+	var comandoLido int
 
-	fmt.Scan(&comando)
+	fmt.Scan(&comandoLido)
 
-	switch comando {
+	return comandoLido
+}
+
+func main() {
+	exibeIntroducao()
+	exibirMenu()
+
+	comandoEscolhido := lerComando()
+
+	switch comandoEscolhido {
 	case 1:
 		fmt.Println("Iniciar Monitoramento.")
 	case 2:
 		fmt.Println("Exibir logs.")
 	case 0:
-		fmt.Println("Sair do programa.")
+		os.Exit(0)
 	default:
-		fmt.Println("Não conheço o comando", comando)
+		os.Exit(-1)
 	}
 }

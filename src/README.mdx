@@ -1,6 +1,6 @@
 # Anotações sobre as aulas.
 
-## Imports
+## Imports.
 
 Exemplo de import individual.
 
@@ -17,11 +17,11 @@ import (
 )
 ```
 
-## Variáveis
+## Variáveis.
 
 As três formas de declaração que foram mostradas na aula são:
 
-### Declaração com var
+### Declaração com var.
 
 Essa declaração é o equivalente ao "let" do JavaScript, é utilizada para valores que são atulizados após a declaração.
 
@@ -38,7 +38,7 @@ func main() {
 }
 ```
 
-### Declaração com const
+### Declaração com const.
 
 Essa declaração é o equivalente ao "const" do JavaScript, é utilizada para valores constantes, que não irão sofrer uma nova atribuição após a declaração.
 
@@ -55,7 +55,7 @@ func main() {
 }
 ```
 
-### Declaração curta
+### Declaração curta.
 
 Essa declaração é um atalho para a declaração com var, segue o mesmo funcionamento da mesma.
 
@@ -72,7 +72,7 @@ func main() {
 }
 ```
 
-## Tipos
+## Tipos.
 
 Você pode declarar os tipos junto da criação da variável, porém a linguagem Go cuida de fazer a inferência dos tipos automaticamente.
 
@@ -92,9 +92,9 @@ func main() {
 }
 ```
 
-## Pacotes
+## Pacotes.
 
-### "fmt"
+### "fmt".
 
 Esse pacote é o responsável pelas saídas e entradas do terminal.
 
@@ -118,7 +118,7 @@ func main() {
 }
 ```
 
-### "reflect"
+### "reflect".
 
 ...
 
@@ -136,16 +136,16 @@ func main() {
 ```
 
 
-## Estruturas
+## Estruturas condicionais.
 
-### "if"
+### "if".
 
 Semelhante a outras linguagens com tipagem forte, diferente de JavaScript a condição tem sempre que ser uma expressão ou boolean.
 
 ```
 package main
 
-import "reflect"
+import "fmt"
 
 func main() {
     const texto string = "Paulo"
@@ -163,14 +163,14 @@ func main() {
 }
 ```
 
-### "switch"
+### "switch".
 
 Semelhante ao switch em outras linguagens, com diferença que não é precisio adicionar um "break" dentro dos cases.
 
 ```
 package main
 
-import "reflect"
+import "fmt"
 
 func main() {
     const nome string = "Paulo"
@@ -185,5 +185,29 @@ func main() {
 	default:
 		fmt.Println("Olá, desconhecido.")
 	}
+}
+```
+
+## Funções.
+
+A declaração é feito com a palabra chave "func", caso queira criar uma função que retorne algo é preciso declarar o tipo do retorno primeiro.
+
+```
+package main
+
+import "fmt"
+
+func olaMundo() {
+    fmt.Println("Olá, Mundo.")
+}
+
+func retornaDois() int {
+    return 2
+}
+
+func main() {
+    olaMundo() // Irá exibir no console o texto "Olá, Mundo."
+
+    numero := retornaDois() // O retorno da função será 2, como definimos a tipagem no retorna da função, podemos usar a declaração curta.
 }
 ```
