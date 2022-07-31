@@ -4,20 +4,31 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
 
-func exibeIntroducao() {
+func adicionarEspacoLinha() {
+	fmt.Println("----------------------------")
+}
+
+func exibirIntroducao() {
 	nome := "Paulo"
 	versao := 1.2
 
+	adicionarEspacoLinha()
+
 	fmt.Println("Olá, Sr.", nome)
 	fmt.Println("Este programa está na versão", versao)
+
+	adicionarEspacoLinha()
 }
 
 func exibirMenu() {
 	fmt.Println("1 - Iniciar Monitoramento.")
 	fmt.Println("2 - Exibir logs.")
 	fmt.Println("0 - Sair do programa.")
+
+	adicionarEspacoLinha()
 }
 
 func lerComando() int {
@@ -28,27 +39,54 @@ func lerComando() int {
 	return comandoLido
 }
 
+func monitarSite(site string) {
+	res, _ := http.Get(site)
+
+	if res.StatusCode >= 200 || res.StatusCode < 300 {
+		fmt.Println("Site:", site, "foi carregado com sucesso!")
+	} else {
+		fmt.Println("Site:", site, "está com problemas. Status code [", res.Status, "]")
+	}
+
+	adicionarEspacoLinha()
+}
+
 func iniciarMonitoramento() {
+	adicionarEspacoLinha()
+
 	fmt.Println("Monitorando...")
+
+	adicionarEspacoLinha()
 
 	sites := []string{
 		"https://acessibilidade-senai.vercel.app",
 		"https://sistema-agv.vercel.app",
 		"https://agv-mapa.vercel.app",
-		"https://henrique1204.github.io/Cardapio/public/index.html",
 	}
 
-	res, _ := http.Get(sites[0])
+	const vezesDeMonitoramento = 5
+	const cincoSegundos = 5 * time.Second
 
-	if res.StatusCode >= 200 || res.StatusCode < 300 {
-		fmt.Println("Site:", sites[0], "foi carregado com sucesso!")
-	} else {
-		fmt.Println("Site:", sites[0], "está com problemas. Status code [", res.Status, "]")
+	for i := 1; i <= vezesDeMonitoramento; i++ {
+		for index, site := range sites {
+			indexMaisUm := index + 1
+
+			fmt.Println("Testando o site", indexMaisUm, ":", site)
+
+			monitarSite(site)
+		}
+
+		if i != vezesDeMonitoramento {
+			fmt.Println("Esperando... (x", i, ")")
+			adicionarEspacoLinha()
+
+			time.Sleep(cincoSegundos)
+		}
 	}
 }
 
 func main() {
-	exibeIntroducao()
+	exibirIntroducao()
 
 	for {
 		exibirMenu()

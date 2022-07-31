@@ -317,10 +317,47 @@ import (
 )
 
 func main() {
-	for {
-		fmt.Println("Rodou o Looping")
+	for i := 0; i < len(sites); i++ {
+		res, _ := http.Get(sites[i])
 
-		os.Exit(0) // Se não houvesse essa linha, o looping iria imprimir "Rodou o Looping" infinitimanete no terminal.
+		if res.StatusCode >= 200 || res.StatusCode < 300 {
+			fmt.Println("Site:", sites[i], "foi carregado com sucesso!")
+		} else {
+			fmt.Println("Site:", sites[i], "está com problemas. Status code [", res.Status, "]")
+		}
+	}
+}
+```
+
+Você pode usar o "for" com expressão e variável igual a outras linguagens.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	const nomes = [4]string{"Paulo", "Henrique", "Silva", "Souza"}
+
+	for i := 0; i < len(nomes); i++ {
+		fmt.Println(nomes) // Irá exibir individualmente cada nome dentro do array.
+	}
+}
+```
+
+A linguagem Go ainda tem uma outra forma de se usar o "for", que serve como abreviação para o uso anterior.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	const nomes = [4]string{"Paulo", "Henrique", "Silva", "Souza"}
+
+	for indice, valor := range nomes {
+		fmt.Println(indice) // Irá exibir o índice atual de onde o for está no array.
+		fmt.Println(valor) // Irá exibir o valor atual de onde o for está no array.
 	}
 }
 ```
