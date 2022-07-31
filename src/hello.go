@@ -31,14 +31,19 @@ func lerComando() int {
 func iniciarMonitoramento() {
 	fmt.Println("Monitorando...")
 
-	siteUrl := "https://acessibilidade-senai.vercel.app"
+	sites := []string{
+		"https://acessibilidade-senai.vercel.app",
+		"https://sistema-agv.vercel.app",
+		"https://agv-mapa.vercel.app",
+		"https://henrique1204.github.io/Cardapio/public/index.html",
+	}
 
-	res, _ := http.Get(siteUrl)
+	res, _ := http.Get(sites[0])
 
 	if res.StatusCode >= 200 || res.StatusCode < 300 {
-		fmt.Println("Site:", siteUrl, "foi carregado com sucesso!")
+		fmt.Println("Site:", sites[0], "foi carregado com sucesso!")
 	} else {
-		fmt.Println("Site:", siteUrl, "está com problemas. Status code [", res.Status, "]")
+		fmt.Println("Site:", sites[0], "está com problemas. Status code [", res.Status, "]")
 	}
 }
 

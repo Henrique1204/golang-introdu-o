@@ -92,6 +92,85 @@ func main() {
 }
 ```
 
+## Arrays e Slices.
+
+### "Array"
+
+O funcionamento dos arrays se assemelha a como é em Java, você só pode armazenar valores de um mesmo tipo e precisa definir o tamanho na hora que estiver declarando ele.
+
+Ao declarar um variável do tipo array, ela irá receber um array com a quantidade de itens que você declarou preenchido pelos valores padrão da linguagem Go para o tipo do array, no caso de um "[4]string", as 4 posições estarão com uma string vazia, no caso de um "[4]int", as posições estarão com o valor 0.
+
+Caso queira, você também pode declarar um array já com algumas posições preenchidas.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var numeros [4]int
+
+	numeros[0] = 1
+	numeros[1] = 2
+	numeros[2] = 3
+
+	fmt.Println(numeros) // Irá exibir [1 2 3 0], pois como a última posição não foi definida com algum valor, o Go definiu o 0 para ela.
+
+	var nomes = [4]string{"Paulo", "Henrique", "Silva", "Souza"}
+
+	nomes[4] = "Junior"
+
+	fmt.Println(nomes) // Irá exibir [Paulo Henrique Silva Junior].
+}
+```
+
+### "Slices"
+
+As slices são uma abstração dos arrays, eles tem o mesmo comportamento, porém não precisam ter um tamanho inicial definido.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var numeros = []int{1, 2, 3}
+
+	fmt.Println(numeros) // Irá exibir [1 2 3]
+
+	numeros = append(numeros, 4)
+
+	fmt.Println(numeros) // Irá exibir [1 2 3 4]
+}
+```
+
+### Métodos.
+
+Existem alguns métodos utilitários para arrays e slices, são eles o "cap()", "len()" e o "append", sendo esse último exclusivo das slices, esses métodos são responsáveis respectivamente por retornar a capacidade total de itens que podem ser guardados, o tamanho de itens guardados e adicionar um novo item dentro da slice.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var numerosSlice = []int{1, 2, 3}
+	var numerosArray = [3]int{1, 2, 3}
+
+
+	var capacidadeSlice = cap(numerosSlice) // Retorna 3, como esse valor é variável, o go não permite que você use "const" na declaração da variável.
+	const capacidadeArray = cap(numerosArray) // Retorna 3, esse valor é fixo, o go permite que você use "const" na declaração da variável.
+
+	var lengthSlice = len(numerosSlice) // Retorna 3, como esse valor é variável, o go não permite que você use "const" na declaração da variável.
+	const lengthArray = len(numerosArray) // Retorna 3, esse valor é fixo, o go permite que você use "const" na declaração da variável.
+
+	numerosSlice = append(numerosSlice, 4) // Irá retornar uma slice com os valores antigos + o novo valor que você definiu isso irá afetar o retorno dos outros métodos.
+
+	var capacidadeSlice = cap(numerosSlice) // Retorna 6, sempre que você fizer um "append" que ultrapasse o valor atual de capicidade, ela irá dobrar.
+	var lengthSlice = len(numerosSlice) // Retorna 4.
+}
+```
+
 ## Pacotes.
 
 ### "fmt".
