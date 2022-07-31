@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -42,6 +43,18 @@ func lerComando() int {
 	return comandoLido
 }
 
+func registraLog(site string, status bool) {
+	arquivo, erro := os.OpenFile("./src/log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+
+	if erro != nil {
+		fmt.Println(erro)
+	}
+
+	arquivo.WriteString(time.Now().Format("02/01/2006 15:04:05") + " - " + site + " - online: " + strconv.FormatBool(status) + "\n")
+
+	arquivo.Close()
+}
+
 func monitarSite(site string) {
 	res, erro := http.Get(site)
 
@@ -53,13 +66,17 @@ func monitarSite(site string) {
 		return
 	}
 
-	if res.StatusCode >= 200 || res.StatusCode < 300 {
+	statusSucesso := res.StatusCode >= 200 || res.StatusCode < 300
+
+	if statusSucesso {
 		fmt.Println("Site:", site, "foi carregado com sucesso!")
 	} else {
 		fmt.Println("Site:", site, "está com problemas. Status code [", res.Status, "]")
 	}
 
 	adicionarEspacoLinha()
+
+	registraLog(site, statusSucesso)
 }
 
 func lerSitesDoArquivo() []string {
