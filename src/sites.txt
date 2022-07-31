@@ -1,0 +1,3 @@
+https://acessibilidade-senai.vercel.app
+https://sistema-agv.vercel.app
+https://agv-mapa.vercel.app

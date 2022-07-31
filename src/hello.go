@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -40,7 +43,15 @@ func lerComando() int {
 }
 
 func monitarSite(site string) {
-	res, _ := http.Get(site)
+	res, erro := http.Get(site)
+
+	if erro != nil {
+		fmt.Println(erro)
+
+		adicionarEspacoLinha()
+
+		return
+	}
 
 	if res.StatusCode >= 200 || res.StatusCode < 300 {
 		fmt.Println("Site:", site, "foi carregado com sucesso!")
@@ -51,6 +62,34 @@ func monitarSite(site string) {
 	adicionarEspacoLinha()
 }
 
+func lerSitesDoArquivo() []string {
+	arquivo, erro := os.Open("./src/sites.txt")
+
+	if erro != nil {
+		fmt.Println(erro)
+
+	}
+
+	leitor := bufio.NewReader(arquivo)
+	sliceLinhas := []string{}
+
+	for {
+		linha, erro := leitor.ReadString('\n')
+		linhaSemQuebra := strings.TrimSpace(linha)
+
+		sliceLinhas = append(sliceLinhas, linhaSemQuebra)
+
+		if erro == io.EOF {
+			break
+		}
+
+	}
+
+	arquivo.Close()
+
+	return sliceLinhas
+}
+
 func iniciarMonitoramento() {
 	adicionarEspacoLinha()
 
@@ -58,11 +97,7 @@ func iniciarMonitoramento() {
 
 	adicionarEspacoLinha()
 
-	sites := []string{
-		"https://acessibilidade-senai.vercel.app",
-		"https://sistema-agv.vercel.app",
-		"https://agv-mapa.vercel.app",
-	}
+	sites := lerSitesDoArquivo()
 
 	const vezesDeMonitoramento = 5
 	const cincoSegundos = 5 * time.Second
