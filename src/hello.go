@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
@@ -137,6 +138,20 @@ func iniciarMonitoramento() {
 	}
 }
 
+func exibirLogs() {
+	adicionarEspacoLinha()
+
+	arquivo, erro := ioutil.ReadFile("./src/log.txt")
+
+	if erro != nil {
+		fmt.Println(erro)
+	}
+
+	fmt.Println(string(arquivo))
+
+	adicionarEspacoLinha()
+}
+
 func main() {
 	exibirIntroducao()
 
@@ -149,7 +164,7 @@ func main() {
 		case 1:
 			iniciarMonitoramento()
 		case 2:
-			fmt.Println("Exibir logs.")
+			exibirLogs()
 		case 0:
 			os.Exit(0)
 		default:
